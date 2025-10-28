@@ -1,0 +1,66 @@
+import { useState } from 'react';
+import { View, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
+import Txt from '@components/Txt';
+import TextField from '@components/TextField';
+import PrimaryButton from '@components/PrimaryButton';
+import { t } from '@ui/theme';
+import { router, Link } from 'expo-router';
+
+export default function SignIn() {
+  const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
+  const [show, setShow] = useState(false);
+  const [err, setErr] = useState('');
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={{ flex: 1, backgroundColor: t.colors.bg }}
+    >
+      <View style={{ flex:1, padding: t.space.lg, gap: t.space.md, justifyContent: 'center' }}>
+        <Txt type="title">간단 커뮤니티 앱</Txt>
+        <Txt type="small" style={{ marginTop: -8 }}>이메일로 로그인하세요</Txt>
+
+        <TextField
+          placeholder="you@example.com"
+          autoCapitalize="none"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
+        />
+
+        <View style={{ gap: 6 }}>
+
+          <View style={{ flexDirection:'row', justifyContent:'space-between' }}>
+            <Txt type="body" style={{ fontWeight: '700' }}>비밀번호</Txt>
+            <Pressable onPress={() => setShow(s => !s)}>
+              <Txt type="body" style={{ color: t.colors.primary }}>{show ? 'Hide' : 'Show'}</Txt>
+            </Pressable>
+          </View>
+
+          <TextField
+            secureTextEntry={!show}
+            value={pw}
+            onChangeText={setPw}
+          />
+
+        </View>
+
+        {!!err && <Txt type="small" style={{ color: t.colors.error }}>{err}</Txt>}
+
+        <PrimaryButton
+          title="로그인"
+          onPress={() => router.replace('/(main)/index')}
+          style={{ marginTop: t.space.md }}
+        />
+
+        <View style={{ alignItems:'center', marginTop: t.space.sm }}>
+            <Txt type="small">
+                처음이신가요? <Link href="/(auth)/sign-up" style={{ color: t.colors.primary }}>회원가입</Link>
+            </Txt>
+        </View>
+
+      </View>
+    </KeyboardAvoidingView>
+  );
+}
