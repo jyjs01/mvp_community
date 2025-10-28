@@ -52,7 +52,7 @@ export default function SignUp() {
   
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior="padding"
       style={{ flex: 1, backgroundColor: t.colors.bg }}
     >
       <View style={{ flex: 1, padding: t.space.lg, gap: t.space.md, justifyContent: 'center' }}>
@@ -61,7 +61,7 @@ export default function SignUp() {
 
         <View style={{ gap: 8 }}>
           <Txt type="body" style={{ fontWeight: '700' }}>이름</Txt>
-          <TextField placeholder="홍길동" value={name} onChangeText={setName} />
+          <TextField value={name} onChangeText={setName} />
         </View>
 
         <View style={{ gap: 8 }}>
@@ -82,7 +82,7 @@ export default function SignUp() {
               <Txt type="body" style={{ color: t.colors.primary }}>{showPw ? 'Hide' : 'Show'}</Txt>
             </Pressable>
           </View>
-          <TextField placeholder="••••••••" secureTextEntry={!showPw} value={pw} onChangeText={setPw} />
+          <TextField secureTextEntry={!showPw} value={pw} onChangeText={setPw} />
         </View>
 
         <View style={{ gap: 8 }}>
@@ -92,7 +92,7 @@ export default function SignUp() {
               <Txt type="body" style={{ color: t.colors.primary }}>{showPw2 ? 'Hide' : 'Show'}</Txt>
             </Pressable>
           </View>
-          <TextField placeholder="••••••••" secureTextEntry={!showPw2} value={pw2} onChangeText={setPw2} />
+          <TextField secureTextEntry={!showPw2} value={pw2} onChangeText={setPw2} />
         </View>
 
         {!!err && <Txt type="small" style={{ color: t.colors.error }}>{err}</Txt>}

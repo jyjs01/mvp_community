@@ -29,7 +29,7 @@ export default function SignIn() {
       if (data?.accessToken) await SecureStore.setItemAsync('accessToken', data.accessToken);
       if (data?.refreshToken) await SecureStore.setItemAsync('refreshToken', data.refreshToken);
 
-      router.replace('/(main)/index');
+      router.replace('/(main)/home');
     } catch (e) {
       setErr(extractMessage(e) || '로그인에 실패했어요.');
     } finally {
@@ -41,7 +41,7 @@ export default function SignIn() {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      behavior="padding"
       style={{ flex: 1, backgroundColor: t.colors.bg }}
     >
       <View style={{ flex: 1, padding: t.space.lg, gap: t.space.md, justifyContent: 'center' }}>
@@ -64,7 +64,6 @@ export default function SignIn() {
             </Pressable>
           </View>
           <TextField
-            placeholder="••••••••"
             secureTextEntry={!show}
             value={pw}
             onChangeText={setPw}
