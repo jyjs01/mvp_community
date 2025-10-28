@@ -9,6 +9,7 @@ module.exports = function (api) {
           '@components': './src/components',
           '@hooks': './src/hooks',
           '@providers': './src/providers',
+          '@lib': './src/lib',
           '@ui': './src/ui'
         }
       }]

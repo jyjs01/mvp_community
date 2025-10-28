@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { View, KeyboardAvoidingView, Platform, Pressable } from 'react-native';
+import { View, KeyboardAvoidingView, Platform, Pressable, Text } from 'react-native';
 import { router, Link } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import Txt from '@components/Txt';
 import TextField from '@components/TextField';
 import PrimaryButton from '@components/PrimaryButton';
 import { t } from '@ui/theme';
+import api, { extractMessage } from '@lib/api';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -14,16 +16,40 @@ export default function SignUp() {
   const [showPw, setShowPw] = useState(false);
   const [showPw2, setShowPw2] = useState(false);
   const [err, setErr] = useState('');
+  const [loading, setLoading] = useState(false);
 
+
+  // 회원가입 요청
   const onSubmit = async () => {
     setErr('');
-    // UI MVP 검증만 간단히
     if (!name || !email || !pw || !pw2) return setErr('필수 항목을 입력하세요.');
     if (pw !== pw2) return setErr('비밀번호가 일치하지 않습니다.');
-    // TODO 서버 연동
-    router.replace('/(main)/index');
+
+    setLoading(true);
+
+    try {
+
+      const { data } = await api.post('/auth/register', { name, email, password: pw });
+      
+      // 서버가 토큰을 내려주면 바로 저장 후 메인으로 이동
+      if (data?.accessToken) {
+        await SecureStore.setItemAsync('accessToken', data.accessToken);
+        if (data?.refreshToken) await SecureStore.setItemAsync('refreshToken', data.refreshToken);
+        router.replace('/(main)/index');
+      } else {
+
+        // 토큰 안 주는 정책이면 로그인 화면으로 전환
+        router.replace('/(auth)/sign-in');
+      }
+
+    } catch (e) {
+      setErr(extractMessage(e) || '회원가입에 실패했어요.');      
+    } finally {
+      setLoading(false);
+    }
   };
 
+  
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -71,12 +97,19 @@ export default function SignUp() {
 
         {!!err && <Txt type="small" style={{ color: t.colors.error }}>{err}</Txt>}
 
-        <PrimaryButton title="회원가입" onPress={onSubmit} style={{ marginTop: t.space.md }} />
+        <PrimaryButton
+          title={loading ? '가입 중...' : '회원가입'}
+          onPress={onSubmit}
+          disabled={loading}
+          style={{ marginTop: t.space.md }}
+        />
 
         <View style={{ alignItems: 'center', marginTop: t.space.sm }}>
           <Txt type="small">
             이미 계정이 있나요?{' '}
-            <Link href="/(auth)/sign-in" style={{ color: t.colors.primary }}>로그인</Link>
+            <Link href="/(auth)/sign-in" asChild>
+              <Text style={{ color: t.colors.primary }}>로그인</Text>
+            </Link>
           </Txt>
         </View>
       </View>
