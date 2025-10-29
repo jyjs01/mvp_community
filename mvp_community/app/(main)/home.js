@@ -52,7 +52,7 @@ export default function Home() {
         />
         <PrimaryButton
           title="글 목록"
-          onPress={() => {}}
+          onPress={() => {router.push('/(main)/post-list')}}
           style={{ flex: 1 }}
         />
       </View>
