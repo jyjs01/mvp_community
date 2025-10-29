@@ -8,9 +8,7 @@ import PrimaryButton from '@components/PrimaryButton';
 import { t } from '@ui/theme';
 
 const mockPosts = [
-  { id: '1', title: '첫 글이에요', subtitle: '간단 커뮤니티 시작!' },
-  { id: '2', title: '공지', subtitle: '내일부터 UI 리팩토링' },
-  { id: '3', title: '잡담', subtitle: '오늘 점심 뭐 먹지?' },
+  
 ];
 
 export default function Home() {
@@ -23,7 +21,7 @@ export default function Home() {
   };
 
   return (
-    <View style={{ flex: 1, padding: t.space.lg, backgroundColor: t.colors.bg, gap: t.space.md }}>
+    <View style={{ flex: 1, padding: t.space.lg, backgroundColor: t.colors.bg, gap: t.space.md, justifyContent: 'center' }}>
       {/* 헤더 */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Txt type="title">홈</Txt>
@@ -53,7 +51,7 @@ export default function Home() {
           style={{ flex: 1 }}
         />
         <PrimaryButton
-          title="프로필"
+          title="글 목록"
           onPress={() => {}}
           style={{ flex: 1 }}
         />
