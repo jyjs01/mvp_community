@@ -1,0 +1,13 @@
+{
+  "users": [
+    {
+      "id": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "name": "테스트",
+      "email": "test@naver.com",
+      "passwordHash": "$2b$10$y3UTUC8W7MfT/m/f5v036e5CkGgt9Sjt8LWGAtAInmO5tO1QCQ2Pa",
+      "createdAt": 1761650926496
+    }
+  ],
+  "posts": [],
+  "comments": []
+}
