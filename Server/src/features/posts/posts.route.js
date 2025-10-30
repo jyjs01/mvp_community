@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { authGuard } from '../../middlewares/authGuard.js';
+import multer from 'multer';
 import {
   getList,
   getDetail,
@@ -15,6 +16,21 @@ r.get('/', getList);
 
 // 단건 조회
 r.get('/:id', getDetail);
+
+
+// 저장소 설정(간단히 filename 자동)
+const upload = multer({
+  dest: 'uploads/', 
+  limits: { files: 4, fileSize: 10 * 1024 * 1024 }, // 10MB
+});
+
+// upload → controller
+r.post(
+  '/',
+  authGuard,
+  upload.array('images', 4),
+  postCreate
+);
 
 // 생성(로그인 필요)
 r.post('/', authGuard, postCreate);

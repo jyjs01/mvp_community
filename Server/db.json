@@ -8,6 +8,19 @@
       "createdAt": 1761650926496
     }
   ],
-  "posts": [],
+  "posts": [
+    {
+      "id": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "title": "테스트",
+      "content": "테스트입니다",
+      "images": [],
+      "likesCount": 0,
+      "commentsCount": 0,
+      "isDeleted": false,
+      "createdAt": 1761797663561,
+      "updatedAt": 1761797663561
+    }
+  ],
   "comments": []
 }

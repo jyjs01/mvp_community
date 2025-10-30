@@ -61,56 +61,69 @@ export default function PostNewScreen() {
 
   // 글 등록
   const submit = async () => {
-    if (!title.trim()) return Alert.alert('확인', '제목을 입력해 주세요.');
-    if (!body.trim()) return Alert.alert('확인', '내용을 입력해 주세요.');
+  if (!title.trim()) return Alert.alert('확인', '제목을 입력해 주세요.');
+  if (!body.trim()) return Alert.alert('확인', '내용을 입력해 주세요.');
 
-    try {
-        setSubmitting(true);
-        setProgress(null);
+  // 업로드 중 진행률 최솟값(되돌림 방지용)
+  let last = 0;
 
-        // 300ms 이상 길어지면 그때부터 프로그레스 UI 노출
-        const timer = setTimeout(() => setShowProgress(true), 300);
+  // progress 노출 타이머 핸들
+  let timer;
 
+  try {
+    setSubmitting(true);
+    setProgress(null);
 
-        const fd = new FormData();
-        fd.append('title', title.trim());
-        fd.append('content', body.trim());
+    // 300ms 이상 길어지면 그때부터 progress UI 노출
+    timer = setTimeout(() => setShowProgress(true), 300);
 
-        images.forEach((img, idx) => {
-            fd.append('images', {
-                uri: img.uri,
-                name: img.fileName || `photo_${idx}.jpg`,
-                type: img.mime || 'image/jpeg',
-            });
-        });
-
-
-
-        await api.post('/posts', fd, {
-            headers: { 'Content-Type': 'multipart/form-data' },
-            onUploadProgress: (e) => {
-                if (typeof e.total === 'number' && e.total > 0) {
-                setProgress(e.loaded / e.total); // 0~1
-                } else {
-                setProgress(null); // total을 못 받는 경우
-                }
-            },
-            timeout: 60000,
-        });
+    const fd = new FormData();
+    fd.append('title', title.trim());
+    fd.append('content', body.trim());
+    images.forEach((img, idx) => {
+      fd.append('images', {
+        uri: img.uri,
+        name: img.fileName || `photo_${idx}.jpg`,
+        type: img.mime || 'image/jpeg',
+      });
+    });
 
 
-        clearTimeout(timer);
-        setShowProgress(false);
+    await api.post('/posts', fd, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: (e) => {
+        if (typeof e.total === 'number' && e.total > 0) {
+          // 0~0.99로 클램프 + 후퇴 금지
+          let ratio = e.loaded / e.total;
+          ratio = Math.max(0, Math.min(ratio, 0.99));
+          if (ratio < last) ratio = last;
+          last = ratio;
+          setProgress(ratio);
+        } else {
+          setProgress(null); // total을 못 받는 경우
+        }
+      },
+      timeout: 60000,
+    });
 
-        router.replace('/(main)/home');
-    } catch (e) {
-        setShowProgress(false);
-        Alert.alert('오류', extractMessage(err) || '업로드 실패');
-    } finally {
-        setSubmitting(false);
-        setProgress(null);
-    }
-  };
+
+    // 성공했을 때만 100% 표시
+    setProgress(1);
+
+    await new Promise(r => setTimeout(r, 150));
+
+    router.replace('/(main)/home');
+    
+  } catch (error) {
+    Alert.alert('오류', extractMessage(error) || '업로드 실패');
+  } finally {
+    if (timer) clearTimeout(timer);
+    setShowProgress(false);
+    setSubmitting(false);
+    setProgress(null);
+  }
+};
+
 
 
 

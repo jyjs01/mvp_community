@@ -26,7 +26,9 @@ export default function SignIn() {
       const { data } = await api.post('/auth/login', { email, password: pw });
 
       // { accessToken, refreshToken?, user? } 형태 가정
-      if (data?.accessToken) await SecureStore.setItemAsync('accessToken', data.accessToken);
+      const access = data?.accessToken ?? data?.token;     // 둘 다 지원
+      if (access) await SecureStore.setItemAsync('accessToken', access);
+
       if (data?.refreshToken) await SecureStore.setItemAsync('refreshToken', data.refreshToken);
 
       router.replace('/(main)/home');
