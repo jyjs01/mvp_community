@@ -12,9 +12,12 @@
     {
       "id": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
       "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
       "title": "테스트",
       "content": "테스트입니다",
-      "images": [],
+      "images": [
+        "uploads/8fe092fdca5357f0ba22fbb41ca3d679.jpg"
+      ],
       "likesCount": 0,
       "commentsCount": 0,
       "isDeleted": false,

@@ -19,6 +19,6 @@ export const listQuerySchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(50).optional().default(10),
   q: z.string().optional().default(''),
-  author: z.string().optional(), // authorId 필터 (선택)
+  author: z.string().optional(), // authorId 필터
   sort: z.enum(['new', 'old', 'popular']).optional().default('new')
 });

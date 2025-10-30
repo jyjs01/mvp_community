@@ -23,6 +23,7 @@ export async function postCreate(req, res, next) {
     const body = createPostSchema.parse(req.body);
     const post = await svc.createPost({
       authorId: req.user.sub,
+      authorName: req.user.name,
       ...body
     });
     res.status(201).json(post);

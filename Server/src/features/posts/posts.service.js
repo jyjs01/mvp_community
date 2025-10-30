@@ -13,6 +13,7 @@ export async function createPost({ authorId, title, content, images }) {
   const post = {
     id: crypto.randomUUID(),
     authorId,
+    authorName,
     title,
     content: content ?? '',
     images: Array.isArray(images) ? images : [],
