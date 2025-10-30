@@ -13,6 +13,7 @@ export default function Home() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState('');
+  const getId = (it) => String(it?.id ?? it?._id);
 
   const onSignOut = async () => {
     await SecureStore.deleteItemAsync('accessToken');
@@ -44,7 +45,14 @@ export default function Home() {
 
   
   const renderItem = ({ item }) => (
-    <Pressable onPress={() => router.push(`/(main)/posts/${item.id}`)}>
+    <Pressable
+      onPress={() =>
+        router.push({
+          pathname: '/(main)/posts/[id]',
+          params: { id: getId(item) },   // 동적 라우트로 이동
+        })
+      }
+    >
       <View style={{ paddingVertical: t.space.sm }}>
         <Txt type="h1" numberOfLines={1}>{item.title}</Txt>
         {!!item.content && (
@@ -78,7 +86,7 @@ export default function Home() {
         ) : (
           <FlatList
             data={items}
-            keyExtractor={(it) => String(it.id)}
+            keyExtractor={(it) => getId(it)}
             ItemSeparatorComponent={() => <Divider />}
             renderItem={renderItem}
             ListEmptyComponent={
@@ -99,7 +107,7 @@ export default function Home() {
         />
         <PrimaryButton
           title="글 목록"
-          onPress={() => router.push('/(main)/posts')}
+          onPress={() => router.push('/(main)/post-list')}
           style={{ flex: 1 }}
         />
       </View>

@@ -20,13 +20,19 @@ export async function getDetail(req, res, next) {
 
 export async function postCreate(req, res, next) {
   try {
+
+    const files = Array.isArray(req.files) ? req.files : [];
+    const images = files.map(f => `/uploads/${f.filename}`);
+
     const body = createPostSchema.parse(req.body);
     const post = await svc.createPost({
       authorId: req.user.sub,
-      ...body
+      authorName: req.user.name,
+      ...body,
+      images
     });
     res.status(201).json(post);
-  } catch (e) { next(e); }
+  } catch (e) { console.log(req.user.name); next(e); }
 }
 
 export async function patchUpdate(req, res, next) {
