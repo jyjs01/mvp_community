@@ -23,7 +23,7 @@ export default function Home() {
   };
 
   return (
-    <View style={{ flex: 1, padding: t.space.lg, backgroundColor: t.colors.bg, gap: t.space.md }}>
+    <View style={{ flex: 1, padding: t.space.lg, backgroundColor: t.colors.bg, gap: t.space.md, justifyContent: 'center' }}>
       {/* 헤더 */}
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
         <Txt type="title">홈</Txt>
@@ -49,7 +49,7 @@ export default function Home() {
       <View style={{ flexDirection: 'row', gap: t.space.sm }}>
         <PrimaryButton
           title="새 글 작성"
-          onPress={() => {}}
+          onPress={() => router.push('/(main)/post-new')}
           style={{ flex: 1 }}
         />
         <PrimaryButton
