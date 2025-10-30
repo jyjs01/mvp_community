@@ -23,6 +23,22 @@
       "isDeleted": false,
       "createdAt": 1761797663561,
       "updatedAt": 1761797663561
+    },
+    {
+      "id": "5e16a7d1-839a-4020-bdca-1dcf5a1d7e29",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "title": "테스트2",
+      "content": "테스트2입니다",
+      "images": [
+        "/uploads/1761803578461_1000002597.jpg",
+        "/uploads/1761803579741_1000002598.jpg"
+      ],
+      "likesCount": 0,
+      "commentsCount": 0,
+      "isDeleted": false,
+      "createdAt": 1761803580376,
+      "updatedAt": 1761803580376
     }
   ],
   "comments": []

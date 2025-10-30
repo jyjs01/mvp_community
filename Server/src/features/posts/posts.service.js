@@ -9,7 +9,7 @@ function pick(obj, keys) {
 }
 
 // 글 생성
-export async function createPost({ authorId, title, content, images }) {
+export async function createPost({ authorId, authorName, title, content, images }) {
   const post = {
     id: crypto.randomUUID(),
     authorId,
