@@ -8,6 +8,20 @@ import PrimaryButton from '@components/PrimaryButton';
 import { t } from '@ui/theme';
 import api, { extractMessage } from '@lib/api';
 
+
+
+function formatDate(v) {
+  try {
+    const d = typeof v === 'number' ? new Date(v) : new Date(String(v));
+    if (isNaN(d)) return '';
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  } catch { return ''; }
+}
+
+
 export default function Home() {
 
   const [items, setItems] = useState([]);
@@ -28,7 +42,7 @@ export default function Home() {
     setErr('');
     try {
       const { data } = await api.get('/posts', {
-        params: { page: 1, limit: 3, sort: 'new' }, // 서버가 sort 미지원이면 limit만으로 충분
+        params: { page: 1, limit: 3, sort: 'new' },
       });
       const rows = Array.isArray(data?.items) ? data.items : (Array.isArray(data) ? data : []);
       setItems(rows.slice(0, 3));
@@ -44,25 +58,46 @@ export default function Home() {
   useFocusEffect(useCallback(() => { loadLatest(); }, [loadLatest]));
 
   
-  const renderItem = ({ item }) => (
-    <Pressable
-      onPress={() =>
-        router.push({
-          pathname: '/(main)/posts/[id]',
-          params: { id: getId(item) },   // 동적 라우트로 이동
-        })
-      }
-    >
-      <View style={{ paddingVertical: t.space.sm }}>
-        <Txt type="h1" numberOfLines={1}>{item.title}</Txt>
-        {!!item.content && (
-          <Txt type="small" style={{ marginTop: 4, color: t.colors.muted }} numberOfLines={2}>
-            {item.content}
-          </Txt>
-        )}
-      </View>
-    </Pressable>
-  );
+  const renderItem = ({ item }) => {
+    const author = item.authorName || item.author?.name || '작성자 미상';
+    const date = item.createdAt ? formatDate(item.createdAt) : '';
+    return (
+      <Pressable
+        onPress={() =>
+          router.push({
+            pathname: '/(main)/posts/[id]',
+            params: { id: getId(item) },
+          })
+        }
+      >
+        <View style={{ paddingVertical: t.space.sm }}>
+          {/* 제목(좌) · 메타(우) */}
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+            <View style={{ flex: 1, paddingRight: 8 }}>
+              <Txt type="h1" numberOfLines={1}>{item.title}</Txt>
+            </View>
+            <View style={{ alignItems: 'flex-end', minWidth: 110 }}>
+              <Txt type="small" style={{ color: t.colors.muted }} numberOfLines={1}>
+                {author}
+              </Txt>
+              {!!date && (
+                <Txt type="small" style={{ color: t.colors.muted, marginTop: 2 }} numberOfLines={1}>
+                  {date}
+                </Txt>
+              )}
+            </View>
+          </View>
+
+          {/* 내용 미리보기 */}
+          {!!item.content && (
+            <Txt type="small" style={{ marginTop: 6, color: t.colors.muted }} numberOfLines={2}>
+              {item.content}
+            </Txt>
+          )}
+        </View>
+      </Pressable>
+    );
+  };
 
   return (
     <View style={{ flex: 1, padding: t.space.lg, backgroundColor: t.colors.bg, gap: t.space.md, justifyContent: 'center' }}>

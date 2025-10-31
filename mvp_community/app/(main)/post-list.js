@@ -9,6 +9,18 @@ import { t } from '@ui/theme';
 
 const PAGE_SIZE = 10;
 
+
+function formatDate(v) {
+  try {
+    const d = typeof v === 'number' ? new Date(v) : new Date(String(v));
+    if (isNaN(d)) return '';
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  } catch { return ''; }
+}
+
 export default function PostListScreen() {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
@@ -79,18 +91,40 @@ export default function PostListScreen() {
     if (!loading && hasMore) fetchPage(page + 1);
   };
 
-  const renderItem = ({ item }) => (
-    <Pressable onPress={() => router.push(`/(main)/posts/${item.id}`)}>
-      <View style={{ paddingVertical: t.space.sm }}>
-        <Txt type="h1" numberOfLines={1}>{item.title}</Txt>
-        {!!item.content && (
-          <Txt type="small" style={{ marginTop: 4, color: t.colors.muted }} numberOfLines={2}>
-            {item.content}
-          </Txt>
-        )}
-      </View>
-    </Pressable>
-  );
+  const renderItem = ({ item }) => {
+    const author = item.authorName || item.author?.name || '작성자 미상';
+    const date = item.createdAt ? formatDate(item.createdAt) : '';
+    return (
+      <Pressable onPress={() => router.push(`/(main)/posts/${item.id}`)}>
+        <View style={{ paddingVertical: t.space.md }}>
+
+          {/* 제목(좌) · 메타(우) */}
+          <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+            <View style={{ flex: 1, paddingRight: 8 }}>
+              <Txt type="h1" numberOfLines={1}>{item.title}</Txt>
+            </View>
+            <View style={{ alignItems: 'flex-end', minWidth: 110 }}>
+              <Txt type="small" style={{ color: t.colors.muted }} numberOfLines={1}>
+                {author}
+              </Txt>
+              {!!date && (
+                <Txt type="small" style={{ color: t.colors.muted, marginTop: 2 }} numberOfLines={1}>
+                  {date}
+                </Txt>
+              )}
+            </View>
+          </View>
+
+          {/* 내용 미리보기 */}
+          {!!item.content && (
+            <Txt type="small" style={{ marginTop: 6, color: t.colors.muted }} numberOfLines={2}>
+              {item.content}
+            </Txt>
+          )}
+        </View>
+      </Pressable>
+    );
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: t.colors.bg, padding: t.space.lg, gap: t.space.md }}>
