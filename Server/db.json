@@ -19,10 +19,10 @@
         "uploads/8fe092fdca5357f0ba22fbb41ca3d679.jpg"
       ],
       "likesCount": 0,
-      "commentsCount": 0,
+      "commentsCount": 4,
       "isDeleted": false,
       "createdAt": 1761797663561,
-      "updatedAt": 1761797663561
+      "updatedAt": 1761885158506
     },
     {
       "id": "5e16a7d1-839a-4020-bdca-1dcf5a1d7e29",
@@ -35,11 +35,62 @@
         "/uploads/1761803579741_1000002598.jpg"
       ],
       "likesCount": 0,
-      "commentsCount": 0,
+      "commentsCount": 1,
       "isDeleted": false,
       "createdAt": 1761803580376,
-      "updatedAt": 1761803580376
+      "updatedAt": 1761885184130
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "id": "4945f865-1719-488a-9d57-f6c9c895baf3",
+      "postId": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "content": "테스트용 댓글1입니다",
+      "isDeleted": false,
+      "createdAt": 1761884796782,
+      "updatedAt": 1761884796782
+    },
+    {
+      "id": "f173c893-9000-469d-9559-faad9ac79562",
+      "postId": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "content": "테스트용 댓글2입니다",
+      "isDeleted": false,
+      "createdAt": 1761885002153,
+      "updatedAt": 1761885002153
+    },
+    {
+      "id": "8c209385-ffbf-4211-aea5-c70651afcd58",
+      "postId": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "content": "댓글3",
+      "isDeleted": false,
+      "createdAt": 1761885148865,
+      "updatedAt": 1761885148865
+    },
+    {
+      "id": "5c19e3f9-ba01-4232-acc0-7a0028a4b3b5",
+      "postId": "d884a9a0-c932-4a86-8728-a8088fc5cdaa",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "content": "댓글4",
+      "isDeleted": false,
+      "createdAt": 1761885158506,
+      "updatedAt": 1761885158506
+    },
+    {
+      "id": "c3c872bf-508f-454b-abaa-dc8c76f99f4b",
+      "postId": "5e16a7d1-839a-4020-bdca-1dcf5a1d7e29",
+      "authorId": "14591ca9-a0ed-488a-b5b9-a6fd13855eec",
+      "authorName": "테스트",
+      "content": "댓글1",
+      "isDeleted": false,
+      "createdAt": 1761885184130,
+      "updatedAt": 1761885184130
+    }
+  ]
 }
