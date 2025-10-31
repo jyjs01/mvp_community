@@ -3,7 +3,6 @@ import cors from 'cors';
 import { env } from './config/env.js';
 import authRoutes from './features/auth/auth.route.js';
 import postRoutes from './features/posts/posts.route.js';
-// import commentRoutes from './features/comments/comments.route.js';
 // import fileRoutes from './features/files/files.route.js';
 import { errorHandler } from './middlewares/error.js';
 
@@ -18,7 +17,6 @@ app.get('/health', (_req, res) => res.json({ ok: true }));
 
 app.use('/auth', authRoutes);
 app.use('/posts', postRoutes);
-// app.use('/comments', commentRoutes);
 // app.use('/files', fileRoutes);
 
 app.use(errorHandler);

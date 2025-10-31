@@ -3,6 +3,12 @@ import multer from 'multer';
 import path from 'path';
 import { authGuard } from '../../middlewares/authGuard.js';
 import { getList, getDetail, postCreate, patchUpdate, deleteRemove } from './posts.controller.js';
+import {
+  getCommentsByPost,
+  postCommentToPost,
+  patchComment,      
+  deleteComment,
+} from '../comments/comments.controller.js';
 
 const r = Router();
 
@@ -44,5 +50,20 @@ r.post('/', authGuard, upload.array('images', 4), postCreate);
 // 수정/삭제
 r.patch('/:id', authGuard, patchUpdate);
 r.delete('/:id', authGuard, deleteRemove);
+
+
+
+/* ===== 댓글 (모두 posts 하위로) ===== */
+
+// 목록/작성
+r.get('/:postId/comments', getCommentsByPost);
+r.post('/:postId/comments', authGuard, postCommentToPost);
+
+// 댓글 수정/삭제
+r.patch('/:postId/comments/:id', authGuard, patchComment);
+r.delete('/:postId/comments/:id', authGuard, deleteComment);
+
+
+
 
 export default r;
