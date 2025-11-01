@@ -139,7 +139,6 @@ export default function PostDetailScreen() {
           <Txt type="title">글 상세</Txt>
           <View style={{ flexDirection: 'row', gap: t.space.sm }}>
             <PrimaryButton title="목록" onPress={() => router.push('/(main)/post-list')} style={{ height: 40, paddingHorizontal: 14 }} />
-            <PrimaryButton title="새 글" onPress={() => router.push('/(main)/post-new')} style={{ height: 40, paddingHorizontal: 14 }} />
           </View>
         </View>
 

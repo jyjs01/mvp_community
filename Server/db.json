@@ -6,6 +6,13 @@
       "email": "test@naver.com",
       "passwordHash": "$2b$10$y3UTUC8W7MfT/m/f5v036e5CkGgt9Sjt8LWGAtAInmO5tO1QCQ2Pa",
       "createdAt": 1761650926496
+    },
+    {
+      "id": "558e30b1-76a1-4d8a-be54-e62643c15bef",
+      "name": "사용자1",
+      "email": "test1@naver.com",
+      "passwordHash": "$2b$10$6VUkvMutyFWa8ifgNsT6J.0xH/oum2r.qbEbZpzNVi40mQRH7rodq",
+      "createdAt": 1761962578974
     }
   ],
   "posts": [
@@ -35,10 +42,28 @@
         "/uploads/1761803579741_1000002598.jpg"
       ],
       "likesCount": 0,
-      "commentsCount": 1,
+      "commentsCount": 2,
       "isDeleted": false,
       "createdAt": 1761803580376,
-      "updatedAt": 1761885184130
+      "updatedAt": 1761962876175
+    },
+    {
+      "id": "2babd4f8-5f41-4c12-a8f2-ea7644625b77",
+      "authorId": "558e30b1-76a1-4d8a-be54-e62643c15bef",
+      "authorName": "사용자1",
+      "title": "테스트용 글",
+      "content": "테스트입니다!!!!!!",
+      "images": [
+        "/uploads/1761963596540_1000003970.jpg",
+        "/uploads/1761963596560_1000003969.jpg",
+        "/uploads/1761963596601_1000003967.png",
+        "/uploads/1761963596767_1000003966.webp"
+      ],
+      "likesCount": 0,
+      "commentsCount": 1,
+      "isDeleted": false,
+      "createdAt": 1761963596778,
+      "updatedAt": 1761963626948
     }
   ],
   "comments": [
@@ -91,6 +116,26 @@
       "isDeleted": false,
       "createdAt": 1761885184130,
       "updatedAt": 1761885184130
+    },
+    {
+      "id": "17e3adfd-0386-4e8f-a89d-32234f9eb33e",
+      "postId": "5e16a7d1-839a-4020-bdca-1dcf5a1d7e29",
+      "authorId": "558e30b1-76a1-4d8a-be54-e62643c15bef",
+      "authorName": "사용자1",
+      "content": "테스트용 댓글입니다",
+      "isDeleted": false,
+      "createdAt": 1761962876175,
+      "updatedAt": 1761962876175
+    },
+    {
+      "id": "6a9ce1d7-4521-4f6b-bdea-c78a64cbbc85",
+      "postId": "2babd4f8-5f41-4c12-a8f2-ea7644625b77",
+      "authorId": "558e30b1-76a1-4d8a-be54-e62643c15bef",
+      "authorName": "사용자1",
+      "content": "성공!!",
+      "isDeleted": false,
+      "createdAt": 1761963626948,
+      "updatedAt": 1761963626948
     }
   ]
 }
